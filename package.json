@@ -10,7 +10,8 @@
   },
   "ts-standard": {
     "ignore": [
-      "lib/**/*.js"
+      "lib/**/*.js",
+      "PhysX.d.ts"
     ]
   },
   "devDependencies": {

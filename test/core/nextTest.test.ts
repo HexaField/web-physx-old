@@ -1,7 +1,7 @@
-import { setupMain } from "../setupMain";
+import { setupMain } from '../setupMain'
 
-test('Loads PhysX', () => {
-  return setupMain().then(() => {
-    expect(PhysX.PX_PHYSICS_VERSION).toBe(67174656);
+test('Loads PhysX', async () => {
+  return await setupMain().then(() => {
+    expect(PhysX.PX_PHYSICS_VERSION).toBe(67174656)
   })
-});
+})
