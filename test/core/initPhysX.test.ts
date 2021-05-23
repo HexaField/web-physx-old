@@ -1,9 +1,18 @@
-// @ts-expect-error
-import PHYSX from '../../lib/physx.release.cjs.js'
+import { assert } from 'chai';
 
-test('Loads PhysX', () => {
-  return PHYSX().then((physx: any) => {
-    globalThis.PhysX = physx
-    expect(PhysX.PX_PHYSICS_VERSION).toBe(67174656)
+import { setupMain } from '../setupMain'
+import { setupWorker } from '../setupWorker'
+
+describe(("Load PhysX"), () => {
+  it('Loads PhysX', async () => {
+    return await setupMain().then(() => {
+      assert(PhysX.PX_PHYSICS_VERSION, 67174656)
+    })
+  })
+
+  it('Loads PhysX in worker', async () => {
+    return await setupWorker().then((success: boolean) => {
+      assert(success, true)
+    })
   })
 })

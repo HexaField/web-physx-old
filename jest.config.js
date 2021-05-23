@@ -1,8 +1,9 @@
 module.exports = {
-  preset: 'ts-jest/presets/default-esm',
-  globals: {
-    'ts-jest': {
-      useESM: true
-    }
+  testEnvironment: "node",
+  testMatch: ["**/__tests__/**/*.[jt]s?(x)", "**/?(*.)+(spec|test).[tj]s?(x)"],
+  testPathIgnorePatterns: ["/node_modules/"],
+  setupFilesAfterEnv: ["./jest.setup.js"],
+  transform: {
+    "^.+\\.tsx?$": "ts-jest"
   }
-}
+};
