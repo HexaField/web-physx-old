@@ -33,12 +33,12 @@ export class EventDispatcherProxy {
       this.dispatchEvent(event, true)
     })
     // TODO: this needs to have fromSelf in the same way dispatch does
-    // this.messageTypeFunctions.set(MessageType.ADD_EVENT, ({ type }: { type: string }) => {
-    //   this.eventTarget.addEventListener(type, this.eventListener);
-    // });
-    // this.messageTypeFunctions.set(MessageType.REMOVE_EVENT, ({ type }: { type: string }) => {
-    //   this.eventTarget.removeEventListener(type, this.eventListener);
-    // });
+    this.messageTypeFunctions.set(MessageType.ADD_EVENT, ({ type }: { type: string }) => {
+      this.addEventListener(type, this.eventListener, true)
+    })
+    this.messageTypeFunctions.set(MessageType.REMOVE_EVENT, ({ type }: { type: string }) => {
+      this.removeEventListener(type, this.eventListener, true)
+    })
   }
 
   once (type: string, listener: any) {
@@ -49,7 +49,7 @@ export class EventDispatcherProxy {
     this.addEventListener(type, once)
   }
 
-  addEventListener (type: string, listener: any) {
+  addEventListener (type: string, listener: any, fromSelf?: boolean) {
     if (this._listeners[type] === undefined) {
       this._listeners[type] = []
     }
@@ -62,7 +62,7 @@ export class EventDispatcherProxy {
     return this._listeners[type] !== undefined && this._listeners[type].indexOf(listener) !== -1
   }
 
-  removeEventListener (type: string, listener: any) {
+  removeEventListener (type: string, listener: any, fromSelf?: boolean) {
     const listenerArray = this._listeners[type]
     if (listenerArray !== undefined) {
       const index = listenerArray.indexOf(listener)
@@ -136,21 +136,25 @@ export class MessageQueue extends EventDispatcherProxy {
     })
   }
 
-  addEventListener (type: string, listener: (event: any) => void): void {
-    this.queue.push({
-      messageType: MessageType.ADD_EVENT,
-      message: { type },
-      transferables: []
-    } as Message)
+  addEventListener (type: string, listener: (event: any) => void, fromSelf?: boolean): void {
+    if (!fromSelf) {
+      this.queue.push({
+        messageType: MessageType.ADD_EVENT,
+        message: { type },
+        transferables: []
+      } as Message)
+    }
     super.addEventListener(type, listener)
   }
 
-  removeEventListener (type: string, listener: (event: any) => void): void {
-    this.queue.push({
-      messageType: MessageType.REMOVE_EVENT,
-      message: { type },
-      transferables: []
-    } as Message)
+  removeEventListener (type: string, listener: (event: any) => void, fromSelf?: boolean): void {
+    if (!fromSelf) {
+      this.queue.push({
+        messageType: MessageType.REMOVE_EVENT,
+        message: { type },
+        transferables: []
+      } as Message)
+    }
     super.removeEventListener(type, listener)
   }
 

@@ -6,6 +6,7 @@
   "author": "HexaField <joshfield999@gmail.com>",
   "license": "MIT",
   "scripts": {
+    "start": "vite",
     "lint": "npx ts-standard --fix",
     "test": "npx mocha-vite-puppeteer"
   },

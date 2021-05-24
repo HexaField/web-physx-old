@@ -379,7 +379,7 @@ declare namespace PhysX {
   }
 
   class PxSceneDesc {}
-  class PxScene {
+  class PxScene extends Base {
     addActor(actor: PxActor, unk: any): void;
     removeActor(actor: PxActor, unk: any): void;
     simulate(timeStep: number, rando: boolean): void;
