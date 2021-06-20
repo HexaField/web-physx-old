@@ -8,7 +8,7 @@
   "scripts": {
     "start": "vite",
     "lint": "npx ts-standard --fix",
-    "test": "npx mocha-vite-puppeteer"
+    "test": "yarn run mocha-vite-puppeteer"
   },
   "ts-standard": {
     "ignore": [
