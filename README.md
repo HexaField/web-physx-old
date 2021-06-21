@@ -1,4 +1,4 @@
-# web-physx
+# web-physx - WORK IN PROGRESS
 Multi-threaded PhysX in the browser and node with fast behavior logic and minimal wrapping.
 
 This library exposes comprehensive helper functions for setting up common configurations of scenes, bodies, raycasts etc, and also expose functions on the classes themselves. 
