@@ -1,3 +1,6 @@
+# DEPRECATED
+in favour of a better approach https://github.com/HexaField/web-physx
+
 # web-physx - WORK IN PROGRESS
 Multi-threaded PhysX in the browser and node with fast behavior logic and minimal wrapping.
 
